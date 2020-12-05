@@ -1,5 +1,6 @@
 package com.jpa.kakao.controller;
 
+import com.jpa.kakao.domain.Member;
 import com.jpa.kakao.service.MemberService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,8 @@ public class MemberController {
     }
 
     @PostMapping
-    public void insertMember(){
+    public void insertMember(Member member){
+        memberService.insertMember(member);
     }
 
 }

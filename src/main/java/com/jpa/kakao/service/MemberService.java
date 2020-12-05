@@ -8,4 +8,5 @@ public interface MemberService {
 
     public abstract int insertMember(Member member);
 
+
 }

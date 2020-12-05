@@ -1,27 +1,30 @@
 package com.jpa.kakao.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Getter
-@Setter
-@Entity(name = "FriendRelationShip")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  // Proxy 생성을 위한 기본 생성자
+@Entity(name = "friend_relationship_tbl")
 public class FriendRelationShip extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "relationship_no")
     private Long relationShipNo;
 
     // JPA는 상대 테이블의 PK를 멤버변수로 갖지 않고, 엔티티 자체를 참조
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberNo")
+    @JoinColumn(name = "member_no")
     private Member memberNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "friendNo")
+    @JoinColumn(name = "friend_id", unique = true)
     private Member friendId;
 
+    @Column(name = "friend_name")
     private String friendName;
 
     @Enumerated(EnumType.STRING)
