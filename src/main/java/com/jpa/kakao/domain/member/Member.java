@@ -1,15 +1,24 @@
-package com.jpa.kakao.domain;
+package com.jpa.kakao.domain.member;
 
+import com.jpa.kakao.domain.support.BaseTimeEntity;
+import com.jpa.kakao.domain.MemberChatRoomMapping;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.AllArgsConstructor;
+
 
 @Getter
+@Builder
 @Entity(name ="member_tbl")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // Proxy 생성을 위한 기본 생성자
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -43,5 +52,9 @@ public class Member extends BaseTimeEntity {
 
     @Column(name = "birth_date")
     private LocalDateTime birthDate;    // 생일
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<MemberChatRoomMapping> memberChatRoomMappingList = new ArrayList<>();
+
 
 }

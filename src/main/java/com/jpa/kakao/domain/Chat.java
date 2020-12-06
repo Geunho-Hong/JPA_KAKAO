@@ -1,5 +1,6 @@
 package com.jpa.kakao.domain;
 
+import com.jpa.kakao.domain.support.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Entity(name ="chat_tbl")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // Proxy 생성을 위한 기본 생성자
-public class Chat extends BaseTimeEntity{
+public class Chat extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -27,6 +28,7 @@ public class Chat extends BaseTimeEntity{
     @ColumnDefault("0")
     @Column(name = "chat_status")
     private String status;  // 채팅 삭제 여부
+
 
 
 

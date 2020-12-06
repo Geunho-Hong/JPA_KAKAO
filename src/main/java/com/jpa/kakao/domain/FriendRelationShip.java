@@ -1,5 +1,7 @@
 package com.jpa.kakao.domain;
 
+import com.jpa.kakao.domain.member.Member;
+import com.jpa.kakao.domain.support.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

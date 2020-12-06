@@ -1,14 +1,13 @@
 package com.jpa.kakao.domain;
 
+import com.jpa.kakao.domain.support.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // Proxy 생성을 위한 기본 생성자
