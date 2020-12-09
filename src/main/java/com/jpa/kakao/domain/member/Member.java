@@ -22,8 +22,8 @@ import lombok.AllArgsConstructor;
 public class Member extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
-    @Column(name = "member_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_no" , nullable = false)
     private Long memberNo; // 유저 고유 번호
 
     @Column(nullable = false, unique = true, name = "kakao_id")
@@ -55,6 +55,5 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<MemberChatRoomMapping> memberChatRoomMappingList = new ArrayList<>();
-
 
 }

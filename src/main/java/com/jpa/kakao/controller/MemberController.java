@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
@@ -28,12 +30,11 @@ public class MemberController {
         return ResponseEntity.ok(member);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponse> insertMember(@RequestBody MemberSignUpDto memberSignUpDto){
+    @PostMapping
+    public ResponseEntity<ApiResponse> insertMember(@Valid @RequestBody MemberSignUpDto memberSignUpDto){
 
         Long memberNo = memberService.insertMember(memberSignUpDto.toMemberEntity());
 
-        // 이런식으로 두 번 불러오면 문제가 발생?
         ApiResponse<Member> member = ApiResponse.<Member>builder()
                 .status(StatusEnum.OK.getStatusCode())
                 .message("회원 가입이 성공하셨습니다")
@@ -41,8 +42,6 @@ public class MemberController {
                 .build();
 
         return ResponseEntity.ok(member);
-
     }
-
 
 }
