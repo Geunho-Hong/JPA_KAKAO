@@ -48,4 +48,5 @@ public class MemberSignUpDto {
                 .birthDate(birthDate)
                 .build();
     }
+
 }

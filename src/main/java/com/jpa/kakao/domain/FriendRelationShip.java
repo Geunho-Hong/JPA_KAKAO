@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class FriendRelationShip extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "relationship_no")
     private Long relationShipNo;
 

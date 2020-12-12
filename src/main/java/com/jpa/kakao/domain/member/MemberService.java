@@ -22,9 +22,4 @@ public class MemberService {
                 .orElseThrow(() -> new EntityNotFoundException(memberNo + "is not exist"));
     }
 
-    public Long deleteMember(Long memberNo){
-        memberRepository.deleteById(memberNo);
-        return memberNo;
-    }
-
 }
