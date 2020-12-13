@@ -1,15 +1,13 @@
 package com.jpa.kakao.common.error;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ApiError {
 
@@ -19,7 +17,7 @@ public class ApiError {
 
     private String message;
 
-    private List<FieldError> errors;
+    //private List<FieldError> errors;
 
     private String code;
 

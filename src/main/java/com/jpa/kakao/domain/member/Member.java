@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @Builder
 @Entity(name ="member_tbl")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Member extends BaseTimeEntity {
 
     @Id

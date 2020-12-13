@@ -11,9 +11,9 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Long insertMember(Member member){
-        memberRepository.save(member);
-        return member.getMemberNo();
+    public Member insertMember(Member member){
+        // Email이나 Account 기능 추가
+        return memberRepository.save(member);
     }
 
     public Member selectMember(Long memberNo){

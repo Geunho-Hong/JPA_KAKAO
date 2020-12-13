@@ -4,6 +4,7 @@ import com.jpa.kakao.common.ApiResponse;
 import com.jpa.kakao.common.StatusEnum;
 import com.jpa.kakao.domain.member.Member;
 import com.jpa.kakao.domain.member.MemberService;
+import com.jpa.kakao.dto.member.MemberResponseDto;
 import com.jpa.kakao.dto.member.MemberSignUpDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,29 +20,29 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/{memberId}")
-    public ResponseEntity<ApiResponse> selectMember(@PathVariable Long memberId){
+    public ApiResponse<MemberResponseDto> selectMember(@PathVariable Long memberId) {
 
-        ApiResponse<Member> member = ApiResponse.<Member>builder()
+        Member member = memberService.selectMember(memberId);
+
+        // 성공시 Custom 방식으로 -> Return
+        return ApiResponse.<MemberResponseDto>builder()
                 .status(StatusEnum.OK.getStatusCode())
                 .message("회원이 조회 되었습니다")
-                .data(memberService.selectMember(memberId))
+                .data(MemberResponseDto.toMemberDto(member))
                 .build();
-
-        return ResponseEntity.ok(member);
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> insertMember(@Valid @RequestBody MemberSignUpDto memberSignUpDto){
+    public ApiResponse<MemberResponseDto> insertMember(@Valid @RequestBody MemberSignUpDto memberSignUpDto) {
 
-        Long memberNo = memberService.insertMember(memberSignUpDto.toMemberEntity());
+        Member member = memberService.insertMember(memberSignUpDto.toMemberEntity());
 
-        ApiResponse<Member> member = ApiResponse.<Member>builder()
+        return ApiResponse.<MemberResponseDto>builder()
                 .status(StatusEnum.OK.getStatusCode())
                 .message("회원 가입이 성공하셨습니다")
-                .data(memberService.selectMember(memberNo))
+                .data(MemberResponseDto.toMemberDto(member))
                 .build();
 
-        return ResponseEntity.ok(member);
     }
 
 
