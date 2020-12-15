@@ -5,8 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Builder
 @Getter
@@ -20,7 +19,7 @@ public class MemberResponseDto {
     private final String phoneNumber;
     private final String profileUrl;
     private final String kakaoId;
-    private final LocalDateTime birthDate;
+    private final LocalDate birthDate;
 
     public static MemberResponseDto toMemberDto(Member member){
         return MemberResponseDto.builder()

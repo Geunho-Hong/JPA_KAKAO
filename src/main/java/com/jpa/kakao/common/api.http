@@ -1,0 +1,22 @@
+POST http://localhost:8080/api/members
+Content-Type: application/json
+
+{
+     "email" : "hogu8159@naver.com",
+     "kakaoId" : "hogu8159",
+     "name" : "홍근호",
+     "password" : "8159",
+     "phoneNumber" : "010-0000-8159",
+     "birthDate" : "1994-01-14"
+}
+
+
+###
+###
+GET http://localhost:8080/api/members/1
+
+
+
+
+
+

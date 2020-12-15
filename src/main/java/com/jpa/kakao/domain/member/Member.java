@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class Member extends BaseTimeEntity {
     private String status;  // 유저 탈퇴 여부
 
     @Column(name = "birth_date")
-    private LocalDateTime birthDate;    // 생일
+    private LocalDate birthDate;    // 생일
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<MemberChatRoomMapping> memberChatRoomMappingList = new ArrayList<>();

@@ -7,11 +7,13 @@ import com.jpa.kakao.domain.member.MemberService;
 import com.jpa.kakao.dto.member.MemberResponseDto;
 import com.jpa.kakao.dto.member.MemberSignUpDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
@@ -37,6 +39,7 @@ public class MemberController {
 
         Member member = memberService.insertMember(memberSignUpDto.toMemberEntity());
 
+        log.info("Member Info : {} " + member.toString());
         return ApiResponse.<MemberResponseDto>builder()
                 .status(StatusEnum.OK.getStatusCode())
                 .message("회원 가입이 성공하셨습니다")
