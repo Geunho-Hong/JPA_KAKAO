@@ -37,15 +37,15 @@ public class MemberController {
     @PostMapping
     public ApiResponse<MemberResponseDto> insertMember(@Valid @RequestBody MemberSignUpDto memberSignUpDto) {
 
-        Member member = memberService.insertMember(memberSignUpDto.toMemberEntity());
+        Member joinMember = memberService.insertMember(memberSignUpDto.toMemberEntity());
 
-        log.info("Member Info : {} " + member.toString());
+        log.info("Member Info : {} " + joinMember.toString());
+
         return ApiResponse.<MemberResponseDto>builder()
                 .status(StatusEnum.OK.getStatusCode())
-                .message("회원 가입이 성공하셨습니다")
-                .data(MemberResponseDto.toMemberDto(member))
+                .message("회원 가입을 성공하셨습니다")
+                .data(MemberResponseDto.toMemberDto(joinMember))
                 .build();
-
     }
 
 

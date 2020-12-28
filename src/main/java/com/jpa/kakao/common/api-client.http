@@ -1,0 +1,23 @@
+POST http://localhost:8080/api/members
+Content-Type: application/json
+
+{
+     "email" : "gfdu2@naver.com",
+     "kakaoId" : "gray222so2n",
+     "name" : "홍근호",
+     "password" : "8159",
+     "phoneNumber" : "010-7122-5559",
+     "birthDate" : "1855-01-14"
+}
+
+
+
+###
+###
+GET http://localhost:8080/api/members/5
+
+
+
+
+
+

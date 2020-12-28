@@ -1,19 +1,24 @@
 package com.jpa.kakao.dto.member;
 
+import com.jpa.kakao.common.validator.BirthDate;
+import com.jpa.kakao.common.validator.PhoneNumber;
 import com.jpa.kakao.domain.member.Member;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.AllArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor
+@Builder
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberSignUpDto {
 
     @NotEmpty(message =  "카카오 Id를 입력해주세요")
@@ -27,12 +32,13 @@ public class MemberSignUpDto {
     private String email;
 
     @NotEmpty(message = "이름을 입력해주세요")
+    @Size(min = 2, max = 10)
     private String name;
 
-    @NotEmpty(message = "전화번호를 입력해주세요")
+    @PhoneNumber
     private String phoneNumber;
 
-    @NotNull(message = "생년월일을 입력해주세요")
+    @BirthDate
     private LocalDate birthDate;
 
     public Member toMemberEntity() {
