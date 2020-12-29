@@ -49,6 +49,7 @@ public class MemberTest {
     public void getMember() throws Exception {
 
         Member member = Member.builder()
+                .memberNo(1L)
                 .kakaoId("grayson")
                 .password("password")
                 .email("grayson@naver.com")
@@ -60,8 +61,7 @@ public class MemberTest {
         given(memberService.selectMember(1L))
                 .willReturn(member);
 
-
-        ResultActions result = mockMvc.perform(get("/api/members")
+        ResultActions result = mockMvc.perform(get("/api/members/{memberNo}",1L)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print());
 

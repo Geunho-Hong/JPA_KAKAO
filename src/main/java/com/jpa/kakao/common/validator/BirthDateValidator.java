@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import static java.time.LocalDate.now;
 import static java.time.LocalDate.of;
 
-public class BirthDateValidator implements ConstraintValidator<BirthDate,LocalDate> {
+public class BirthDateValidator implements ConstraintValidator<BirthDate, LocalDate> {
 
     @Override
     public void initialize(BirthDate constraintAnnotation) {
@@ -16,7 +16,7 @@ public class BirthDateValidator implements ConstraintValidator<BirthDate,LocalDa
 
     @Override
     public boolean isValid(LocalDate birthDate, ConstraintValidatorContext context) {
-        return birthDate !=null && birthDate.isAfter(of(1900,1,1))
+        return birthDate != null && birthDate.isAfter(of(1900, 1, 1))
                 && birthDate.isBefore(now());
     }
 
