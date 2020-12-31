@@ -17,7 +17,6 @@ public class FriendRelationShip extends BaseTimeEntity {
     @Column(name = "relationship_no")
     private Long relationShipNo;
 
-    // JPA는 상대 테이블의 PK를 멤버변수로 갖지 않고, 엔티티 자체를 참조
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_no")
     private Member memberNo;

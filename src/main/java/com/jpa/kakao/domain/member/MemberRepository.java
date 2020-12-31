@@ -6,7 +6,7 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     boolean existsByEmail(String email);
 
-    boolean existsByKakaoId(String kakaoId);
+    boolean existsBymemberId(String memberId);
 
     boolean existsByPhoneNumber(String phoneNumber);
 

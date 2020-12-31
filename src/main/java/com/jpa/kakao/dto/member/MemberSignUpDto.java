@@ -21,8 +21,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class MemberSignUpDto {
 
+    private Long memberNo;
+
     @NotEmpty(message =  "카카오 Id를 입력해주세요")
-    private String kakaoId;
+    private String memberId;
 
     @NotEmpty(message = "패스워드를 입력해주세요")
     private String password;
@@ -43,7 +45,8 @@ public class MemberSignUpDto {
 
     public Member toMemberEntity() {
         return Member.builder()
-                .kakaoId(kakaoId)
+                .memberNo(memberNo)
+                .memberId(memberId)
                 .password(password)
                 .email(email)
                 .name(name)

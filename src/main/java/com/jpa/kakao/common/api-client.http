@@ -2,11 +2,11 @@ POST http://localhost:8080/api/members
 Content-Type: application/json
 
 {
-     "email" : "gfdudd2@naver.com",
-     "kakaoId" : "grady222so2n",
+     "email" : "grayson@naver.com",
+     "memberId" : "grayson",
      "name" : "홍근호",
-     "password" : "8159",
-     "phoneNumber" : "010-7322-5559",
+     "password" : "password",
+     "phoneNumber" : "010-7122-8159",
      "birthDate" : "1994-01-14"
 }
 

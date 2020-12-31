@@ -25,7 +25,12 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
+
     compile('org.springframework.boot:spring-boot-starter-web')
 
     // lombok
@@ -46,12 +51,24 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.3.5.RELEASE'
 
     // test code
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '2.1'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.5.15'
+    testImplementation('org.springframework.boot:spring-boot-starter-test'){
+        exclude group: 'junit', module: 'junit'
+    }
+
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.7.0'
+    testRuntimeOnly "org.junit.platform:junit-platform-commons:1.7.0"
+
+
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-core', version: '2.1'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.5.15'
 
     //json path
     compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
+
+    // Enhanced Random
+    compile group: 'io.github.benas', name: 'random-beans', version: '3.8.0'
 
 
 }

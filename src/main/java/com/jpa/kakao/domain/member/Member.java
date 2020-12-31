@@ -2,20 +2,16 @@ package com.jpa.kakao.domain.member;
 
 import com.jpa.kakao.domain.support.BaseTimeEntity;
 import com.jpa.kakao.domain.MemberChatRoomMapping;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AllArgsConstructor;
 
 
 @Getter
+@ToString
 @Builder
 @Entity(name ="member_tbl")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -27,8 +23,8 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberNo; // 유저 고유 번호
 
-    @Column(nullable = false, unique = true, name = "kakao_id")
-    private String kakaoId;    // 유저 카카오 Id
+    @Column(nullable = false, unique = true, name = "member_id")
+    private String memberId;    // 유저 카카오 Id
 
     @Column(nullable = false , name = "password")
     private String password;  // 유저 패스워드
@@ -54,7 +50,7 @@ public class Member extends BaseTimeEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;    // 생일
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany
     private List<MemberChatRoomMapping> memberChatRoomMappingList = new ArrayList<>();
 
 }

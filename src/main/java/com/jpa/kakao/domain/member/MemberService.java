@@ -2,7 +2,7 @@ package com.jpa.kakao.domain.member;
 
 import com.jpa.kakao.common.ErrorCode;
 import com.jpa.kakao.domain.member.exception.EmailDuplicateException;
-import com.jpa.kakao.domain.member.exception.KakaoIdDuplicateException;
+import com.jpa.kakao.domain.member.exception.MemberIdDuplicateException;
 import com.jpa.kakao.domain.member.exception.MemberNotFoundException;
 import com.jpa.kakao.domain.member.exception.PhoneNumberDuplicateException;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +26,13 @@ public class MemberService {
                 .orElseThrow(() -> new MemberNotFoundException(memberNo));
     }
 
+    public void addMember(Member member,String friendmemberId){
+
+    }
+
     public void validSignUpMember(Member member){
         validMemberEmail(member.getEmail());
-        validKakaoId(member.getKakaoId());
+        validmemberId(member.getMemberId());
         validPhoneNumber(member.getPhoneNumber());
     }
 
@@ -38,9 +42,9 @@ public class MemberService {
         }
     }
 
-    private void validKakaoId(String kakaoId){
-        if(memberRepository.existsByKakaoId(kakaoId)){
-            throw new KakaoIdDuplicateException(ErrorCode.KAKAO_DUPLICATION.getMessage());
+    private void validmemberId(String memberId){
+        if(memberRepository.existsBymemberId(memberId)){
+            throw new MemberIdDuplicateException(ErrorCode.ID_DUPLICATION.getMessage());
         }
     }
 

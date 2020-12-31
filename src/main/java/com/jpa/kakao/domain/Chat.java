@@ -29,7 +29,4 @@ public class Chat extends BaseTimeEntity {
     @Column(name = "chat_status")
     private String status;  // 채팅 삭제 여부
 
-
-
-
 }

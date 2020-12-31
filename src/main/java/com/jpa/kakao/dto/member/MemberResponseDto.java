@@ -18,18 +18,19 @@ public class MemberResponseDto {
     private final String statusMessage;
     private final String phoneNumber;
     private final String profileUrl;
-    private final String kakaoId;
+    private final String memberId;
     private final LocalDate birthDate;
 
     public static MemberResponseDto toMemberDto(Member member){
         return MemberResponseDto.builder()
                 .memberNo(member.getMemberNo())
+                .memberId(member.getMemberId())
                 .name(member.getName())
                 .email(member.getEmail())
                 .statusMessage(member.getStatusMessage())
                 .phoneNumber(member.getPhoneNumber())
                 .profileUrl(member.getProfileUrl())
-                .kakaoId(member.getKakaoId())
+                .memberId(member.getMemberId())
                 .birthDate(member.getBirthDate())
                 .build();
     }

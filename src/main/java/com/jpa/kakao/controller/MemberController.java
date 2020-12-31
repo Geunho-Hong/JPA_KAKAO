@@ -48,5 +48,10 @@ public class MemberController {
                 .build();
     }
 
+    /*@PostMapping
+    public ApiResponse<> addFriend(){
+
+    }*/
+
 
 }
