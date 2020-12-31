@@ -62,7 +62,6 @@ class MemberServiceTest {
     void addFriendTest(){
 
 
-
     }
 
     @Test

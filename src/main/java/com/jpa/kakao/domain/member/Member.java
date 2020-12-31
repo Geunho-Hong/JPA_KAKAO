@@ -1,5 +1,6 @@
 package com.jpa.kakao.domain.member;
 
+import com.jpa.kakao.domain.FriendRelationShip;
 import com.jpa.kakao.domain.support.BaseTimeEntity;
 import com.jpa.kakao.domain.MemberChatRoomMapping;
 import lombok.*;
@@ -8,7 +9,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Getter
 @ToString
@@ -49,6 +49,9 @@ public class Member extends BaseTimeEntity {
 
     @Column(name = "birth_date")
     private LocalDate birthDate;    // 생일
+
+    @OneToMany(mappedBy = "member")
+    private List<FriendRelationShip> friendRelationShipList = new ArrayList<>();
 
     @OneToMany
     private List<MemberChatRoomMapping> memberChatRoomMappingList = new ArrayList<>();

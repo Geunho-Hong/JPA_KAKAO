@@ -1,6 +1,8 @@
 package com.jpa.kakao.domain.member;
 
 import com.jpa.kakao.common.ErrorCode;
+import com.jpa.kakao.domain.FriendRelationShip;
+import com.jpa.kakao.domain.friend.FriendRepository;
 import com.jpa.kakao.domain.member.exception.EmailDuplicateException;
 import com.jpa.kakao.domain.member.exception.MemberIdDuplicateException;
 import com.jpa.kakao.domain.member.exception.MemberNotFoundException;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final FriendRepository friendRepository;
 
     public Member insertMember(Member member){
         validSignUpMember(member);
@@ -26,8 +29,11 @@ public class MemberService {
                 .orElseThrow(() -> new MemberNotFoundException(memberNo));
     }
 
-    public void addMember(Member member,String friendmemberId){
-
+    public void addFriend(Member member, FriendRelationShip friend){
+        if(member.getMemberId().equals(friend.getFriendId())){
+            throw new IllegalArgumentException("자기 자신은 친구 추가할 수 없습니다");
+        }
+        friendRepository.save(friend);
     }
 
     public void validSignUpMember(Member member){
