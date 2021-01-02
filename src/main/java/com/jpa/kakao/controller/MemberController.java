@@ -4,6 +4,7 @@ import com.jpa.kakao.common.ApiResponse;
 import com.jpa.kakao.common.StatusEnum;
 import com.jpa.kakao.domain.member.Member;
 import com.jpa.kakao.domain.member.MemberService;
+import com.jpa.kakao.dto.friend.AddFriendResponseDto;
 import com.jpa.kakao.dto.member.MemberResponseDto;
 import com.jpa.kakao.dto.member.MemberSignUpDto;
 import lombok.RequiredArgsConstructor;
@@ -48,10 +49,19 @@ public class MemberController {
                 .build();
     }
 
-    /*@PostMapping
-    public ApiResponse<> addFriend(){
+    @PostMapping("/friend/{memberId}/{friendId}")
+    public ApiResponse<AddFriendResponseDto> addFriend(@PathVariable String memberId,
+                                                       @PathVariable String friendId){
 
-    }*/
+        Long relationShipNo = memberService.addFriend(memberId,friendId);
+
+        return ApiResponse.<AddFriendResponseDto>builder()
+                .status(StatusEnum.OK.getStatusCode())
+                .message("친구 추가에 성공하셨습니다")
+                .data(new AddFriendResponseDto(relationShipNo))
+                .build();
+
+    }
 
 
 }

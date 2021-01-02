@@ -42,12 +42,10 @@ public class MemberRepositoryTest {
 
         // given
         Member member = memberCreator.nextObject(Member.class);
-
         System.out.println("member : {} " + member.toString());
 
         // when
         memberRepository.save(member);
-
         em.flush();
 
         Member findMember

@@ -20,7 +20,7 @@ spring :
     database-platform: org.hibernate.dialect.MySQL8Dialect
 
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
 
 

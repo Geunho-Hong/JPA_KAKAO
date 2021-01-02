@@ -50,7 +50,7 @@ class MemberServiceTest {
         Member member = memberRandomObject.nextObject(Member.class);
 
         given(memberRepository.existsByEmail(member.getEmail())).willReturn(false);
-        given(memberRepository.existsBymemberId(member.getMemberId())).willReturn(false);
+        given(memberRepository.existsByMemberId(member.getMemberId())).willReturn(false);
         given(memberRepository.existsByPhoneNumber(member.getPhoneNumber())).willReturn(false);
 
         memberService.insertMember(member);
@@ -84,7 +84,7 @@ class MemberServiceTest {
 
         Member member = memberRandomObject.nextObject(Member.class);
 
-        given(memberRepository.existsBymemberId(member.getMemberId())).willReturn(true);
+        given(memberRepository.existsByMemberId(member.getMemberId())).willReturn(true);
 
         // then
         assertThatThrownBy(() -> memberService.insertMember(member))

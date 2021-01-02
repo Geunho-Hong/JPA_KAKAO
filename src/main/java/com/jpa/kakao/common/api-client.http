@@ -2,19 +2,23 @@ POST http://localhost:8080/api/members
 Content-Type: application/json
 
 {
-     "email" : "grayson@naver.com",
-     "memberId" : "grayson",
+     "email" : "grayson2@naver.com",
+     "memberId" : "grayson2",
      "name" : "홍근호",
      "password" : "password",
-     "phoneNumber" : "010-7122-8159",
+     "phoneNumber" : "010-7122-8153",
      "birthDate" : "1994-01-14"
 }
 
+###
+###
+GET http://localhost:8080/api/members/2
 
 
 ###
-###
-GET http://localhost:8080/api/members/5
+POST http://localhost:8080/api/friend/grayson/grayson2
+Content-Type: application/json
+
 
 
 
