@@ -41,11 +41,10 @@ public class MemberService {
         Optional<Member> member = Optional.ofNullable(memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("회원을 찾을 수 없습니다")));
 
-
         Optional<Member> friend = Optional.ofNullable(memberRepository.findByMemberId(friendId)
                 .orElseThrow(() -> new EntityNotFoundException("친구를 찾을 수 없습니다")));
 
-        FriendRelationShip friendRelationShip = FriendRelationShip.addFriend(member.get(),friend.get());
+        FriendRelationShip friendRelationShip = FriendRelationShip.addFriend(member.orElse(null), friend.orElse(null));
         friendRepository.save(friendRelationShip);
 
         return friendRelationShip.getRelationShipNo();

@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) // = junit4의 Run with 과 동일하다
 class MemberServiceTest {
 
     @InjectMocks
