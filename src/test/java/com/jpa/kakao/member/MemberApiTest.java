@@ -173,4 +173,24 @@ public class MemberApiTest {
                 .andExpect(jsonPath("$.data.exist", is(true)))
                 .andDo(print());
     }
+
+    @Test
+    @DisplayName("회원 이메일 중복 검사 테스트")
+    void isExistEmail() throws Exception {
+
+        String email = "hogu8159@naver.com";
+
+        given(memberRepository.existsByEmail(email))
+                .willReturn(true);
+
+        ResultActions result = mockMvc.perform(get("/api/members/exist/email/{email}", email)
+                .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        result
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status", is(StatusEnum.OK.getStatusCode())))
+                .andExpect(jsonPath("$.message", is("이미 존재하는 이메일 입니다")))
+                .andExpect(jsonPath("$.data.exist", is(true)))
+                .andDo(print());
+    }
 }
