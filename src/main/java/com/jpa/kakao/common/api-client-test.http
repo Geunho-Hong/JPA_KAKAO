@@ -1,0 +1,29 @@
+POST http://localhost:8080/api/members
+Content-Type: application/json
+
+{
+     "email" : "grayson2@naver2.com",
+     "memberId" : "grayson22",
+     "name" : "홍근호",
+     "password" : "password",
+     "phoneNumber" : "010-7212-8114",
+     "birthDate" : "1994-01-14"
+}
+
+### 멤버 계정 조회 서비스 테스트
+GET http://localhost:8080/api/members/31
+
+### 멤버 이메일 조회 서비스 테스트
+GET http://localhost:8080/api/members/exist/email/grayson2@naver.com
+
+### 멤버 아이디 조회 서비스 테스트
+GET http://localhost:8080/api/members/exist/memberId/grayson
+
+### 멤버 핸드폰 번호 조회 서비스 테스트
+GET http://localhost:8080/api/members/exist/phone/010-7122-8114
+
+
+
+
+
+

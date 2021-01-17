@@ -30,7 +30,6 @@ public class MemberResponseDto {
                 .statusMessage(member.getStatusMessage())
                 .phoneNumber(member.getPhoneNumber())
                 .profileUrl(member.getProfileUrl())
-                .memberId(member.getMemberId())
                 .birthDate(member.getBirthDate())
                 .build();
     }

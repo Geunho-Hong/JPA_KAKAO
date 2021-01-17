@@ -16,8 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.LocalDate;
+import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
@@ -34,12 +34,26 @@ class MemberServiceTest {
     FriendRepository friendRepository;
 
     static EnhancedRandom memberRandomObject;
+    static EnhancedRandom friendRandomObject;
+
 
     @BeforeAll
     static void setUp(){
         memberRandomObject = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
                 .stringLengthRange(3, 5)
                 .dateRange(LocalDate.of(1920, 1, 1), LocalDate.of(2005, 1, 1))
+                .excludeField(f -> f.getName().equals("memberNo"))
+                .excludeField(f -> f.getName().equals("regDate"))
+                .excludeField(f -> f.getName().equals("modifiedDate"))
+                .randomize(f -> f.getName().equals("email"),() -> "test@naver.com")
+                .build();
+
+        friendRandomObject = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+                .stringLengthRange(3,5)
+                .dateRange(LocalDate.of(1920,1,1),LocalDate.of(2005,1,1))
+                .excludeField(f -> f.getName().equals("memberNo"))
+                .excludeField(f -> f.getName().equals("regDate"))
+                .excludeField(f -> f.getName().equals("modifiedDate"))
                 .build();
     }
 
@@ -55,18 +69,27 @@ class MemberServiceTest {
 
         memberService.insertMember(member);
 
+
     }
 
     @Test
     @DisplayName("친구 추가 기능")
     void addFriendTest(){
 
+        Member member = memberRandomObject.nextObject(Member.class);
+        Member friend = friendRandomObject.nextObject(Member.class);
+
+        given(memberRepository.findByMemberId(member.getMemberId()))
+                .willReturn(Optional.of(member));
+
+        given(memberRepository.findByMemberId(friend.getMemberId()))
+                .willReturn(Optional.of(friend));
 
     }
 
     @Test
     @DisplayName("이메일 중복 검사")
-    void validMemberEmailTest(){
+    void existByEmail(){
 
         Member member = memberRandomObject.nextObject(Member.class);
 
@@ -79,8 +102,8 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("카카오 계정 검사")
-    void validmemberId(){
+    @DisplayName("계정 아이디 존재 여부 확인")
+    void existByMemberId(){
 
         Member member = memberRandomObject.nextObject(Member.class);
 
@@ -94,7 +117,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("핸드폰 번호 검사")
-    void validPhoneNumber(){
+    void existByPhoneNumber(){
 
         Member member = memberRandomObject.nextObject(Member.class);
 

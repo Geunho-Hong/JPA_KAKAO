@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,13 +35,15 @@ public class MemberRepositoryTest {
                 .stringLengthRange(3, 5)
                 .dateRange(LocalDate.of(1920, 1, 1), LocalDate.of(2005, 1, 1))
                 .excludeField(f -> f.getName().equals("memberNo"))
-                .randomize(f -> f.getName().equals("email"),() -> "test@naver.com")
+                .excludeField(f -> f.getName().equals("regDate"))
+                .excludeField(f -> f.getName().equals("modifiedDate"))
+                .randomize(f -> f.getName().equals("email"), () -> "test@naver.com")
                 .build();
     }
 
     @Test
     @DisplayName("DI 테스트")
-    void dependencyTest(){
+    void dependencyTest() {
         assertThat(memberRepository).isNotNull();
         assertThat(testEntityManager).isNotNull();
     }
@@ -51,24 +52,14 @@ public class MemberRepositoryTest {
     @DisplayName("정상적인 회원 저장 성공")
     void save() {
 
-        // given
-      /*  Member member = Member.builder()
-                .memberId("test")
-                .password("8159")
-                .email("test@naver.com")
-                .name("홍근호")
-                .phoneNumber("010-1111-8159")
-                .birthDate(LocalDate.of(1994,1,14))
-                .build();*/
-
-        Member member =memberCreator.nextObject(Member.class);
+        Member member = memberCreator.nextObject(Member.class);
 
         // when
         memberRepository.save(member);
         testEntityManager.flush();
 
-        Member findMember
-                = memberRepository.findById(member.getMemberNo()).orElseThrow(EntityNotFoundException::new);
+        Member findMember = memberRepository.findById(member.getMemberNo())
+                .orElseThrow(EntityNotFoundException::new);
 
         // then
         assertThat(findMember).isEqualTo(member).isSameAs(member);
@@ -83,10 +74,9 @@ public class MemberRepositoryTest {
 
     @Test
     @DisplayName("이메일 존재 여부 확인")
-    void existByEmailTest(){
+    void existByEmailTest() {
 
         Member member = memberCreator.nextObject(Member.class);
-
         memberRepository.save(member);
 
         boolean isExistEmail = memberRepository.existsByEmail(member.getEmail());
@@ -97,10 +87,9 @@ public class MemberRepositoryTest {
 
     @Test
     @DisplayName("회원 아이디 존재 여부 확인")
-    void existByMemberIdTest(){
+    void existByMemberIdTest() {
 
         Member member = memberCreator.nextObject(Member.class);
-
         memberRepository.save(member);
 
         boolean isExistMemberId = memberRepository.existsByMemberId(member.getMemberId());
@@ -110,7 +99,7 @@ public class MemberRepositoryTest {
 
     @Test
     @DisplayName("핸드폰 번호 존재 여부 확인")
-    void existPhoneNumberTest(){
+    void existPhoneNumberTest() {
 
         Member member = memberCreator.nextObject(Member.class);
 
@@ -124,21 +113,20 @@ public class MemberRepositoryTest {
 
     @Test
     @DisplayName("회원 아이디로 멤버 조회")
-    void findByMemberIdTest(){
+    void findByMemberIdTest() {
 
         Member member = memberCreator.nextObject(Member.class);
 
         memberRepository.save(member);
 
-        Optional<Member> findMember =
-                Optional.ofNullable(memberRepository.findByMemberId(member.getMemberId())
-                        .orElseThrow(EntityNotFoundException::new));
+        Member findMember = memberRepository.findByMemberId(member.getMemberId())
+                .orElseThrow(EntityNotFoundException::new);
 
-        assertThat(findMember.orElse(null).getMemberId()).isEqualTo(member.getMemberId());
-        assertThat(findMember.orElse(null).getEmail()).isEqualTo(member.getEmail());
-        assertThat(findMember.orElse(null).getPassword()).isEqualTo(member.getPassword());
-        assertThat(findMember.orElse(null).getName()).isEqualTo(member.getName());
-        assertThat(findMember.orElse(null).getBirthDate()).isEqualTo(member.getBirthDate());
+        assertThat(findMember.getMemberId()).isEqualTo(member.getMemberId());
+        assertThat(findMember.getEmail()).isEqualTo(member.getEmail());
+        assertThat(findMember.getPassword()).isEqualTo(member.getPassword());
+        assertThat(findMember.getName()).isEqualTo(member.getName());
+        assertThat(findMember.getBirthDate()).isEqualTo(member.getBirthDate());
 
     }
 }

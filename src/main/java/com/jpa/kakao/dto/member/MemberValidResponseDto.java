@@ -1,5 +1,4 @@
-package com.jpa.kakao.dto.friend;
-
+package com.jpa.kakao.dto.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddFriendResponseDto {
+public class MemberValidResponseDto {
 
-    private Long relationShipNo;
+    private boolean isExist;
 
 }

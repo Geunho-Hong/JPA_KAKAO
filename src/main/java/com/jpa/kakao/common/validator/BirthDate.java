@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BirthDate {
 
-    public String message() default "BirthDate is not validated (1990.1.1 ~ now)";
+    public String message() default "BirthDate is not validated (1900.1.1 ~ now)";
 
     //represents group of constraints
     public Class<?>[] groups() default {};
