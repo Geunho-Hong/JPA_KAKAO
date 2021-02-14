@@ -6,13 +6,13 @@ import com.jpa.kakao.domain.member.Member;
 import com.jpa.kakao.domain.member.MemberRepository;
 import com.jpa.kakao.domain.member.MemberService;
 import com.jpa.kakao.dto.friend.AddFriendResponseDto;
+import com.jpa.kakao.dto.member.MemberJoinResponseDto;
 import com.jpa.kakao.dto.member.MemberValidResponseDto;
 import com.jpa.kakao.dto.member.MemberResponseDto;
 import com.jpa.kakao.dto.member.MemberSignUpDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 @Slf4j
@@ -36,17 +36,27 @@ public class MemberApiController {
                 .build();
     }
 
-    @PostMapping("")
+    /*@PostMapping("")
     public ApiResponse<MemberResponseDto> insertMember(@Valid @RequestBody MemberSignUpDto memberSignUpDto) {
 
         Member joinMember = memberService.insertMember(memberSignUpDto.toMemberEntity());
-
-//        System.out.println("joinMember = " + joinMember);
 
         return ApiResponse.<MemberResponseDto>builder()
                 .status(StatusEnum.OK.getStatusCode())
                 .message("회원 가입을 성공하셨습니다")
                 .data(MemberResponseDto.toMemberDto(joinMember))
+                .build();
+    }*/
+
+    @PostMapping("")
+    public ApiResponse<MemberJoinResponseDto> insertMember(@Valid @RequestBody MemberSignUpDto memberSignUpDto) {
+
+        Long memberNo = memberService.insertMember(memberSignUpDto.toMemberEntity());
+
+        return ApiResponse.<MemberJoinResponseDto>builder()
+                .status(StatusEnum.OK.getStatusCode())
+                .message("회원 가입을 성공하셨습니다")
+                .data(new MemberJoinResponseDto(memberNo))
                 .build();
     }
 
@@ -85,13 +95,13 @@ public class MemberApiController {
         return ApiResponse.<MemberValidResponseDto>builder()
                 .status(StatusEnum.OK.getStatusCode())
                 .message(isExistMemberId ? "이미 존재하는 아이디 입니다" : "사용 가능한 아이디 입니다")
-                .data(new MemberValidResponseDto(isExistMemberId))
+                .data(new MemberValidResponseDto(isExistMemberId))  // json 데이터 key-value 형태 저장위해 dto 사용
                 .build();
     }
 
     @GetMapping("/exist/phone/{phoneNumber}")
     public ApiResponse<MemberValidResponseDto> existPhoneNumber(@PathVariable String phoneNumber) {
-        // DTO 형태로 Return 해줘야 Key - value 형태로 데이터를 받을 수 있다.
+        // Tip: DTO 형태로 Return 해줘야 Key - value 형태로 데이터를 받을 수 있다.
         boolean isExistPhoneNumber = memberRepository.existsByPhoneNumber(phoneNumber);
 
         return ApiResponse.<MemberValidResponseDto>builder()

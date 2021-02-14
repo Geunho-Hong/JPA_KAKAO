@@ -1,3 +1,9 @@
+# Jasypt encryption
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    password: hong8159
+
 #Server Encoding
 server:
   servlet:
@@ -10,10 +16,10 @@ server:
 #Spring Setting
 spring :
   datasource:
-    url : jdbc:mysql://localhost:3306/jpa_kakao?serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
-    username: hong
-    password: 8159
+    url: ENC(tj8W05hwc8lT/+gmdkaPy6X7I7ryAEzjvbaI8botrEvvwhaBVaHL5uYDT0TzTCulXqcQYHWu0z5gqG6CeoSfygFDtnfDNYZH)
+    username: ENC(keKb5G3iZVw11hGUnpqN7w==)
+    password : ENC(eBmL6ocDbYOTyWeuO6cOnA==)
 
   jpa:
     show-sql : true

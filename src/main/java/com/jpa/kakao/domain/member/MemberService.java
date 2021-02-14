@@ -19,9 +19,16 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final FriendRepository friendRepository;
 
-    public Member insertMember(Member member) {
+    /*public Member insertMember(Member member) {
         validSignUpMember(member);
         return memberRepository.save(member);
+    }*/
+
+    public Long insertMember(Member member){
+        validSignUpMember(member);
+        memberRepository.save(member);
+        System.out.println("MemberNo : " + member.getMemberNo());
+        return member.getMemberNo();
     }
 
     public Member selectMember(Long memberNo) {
@@ -71,6 +78,5 @@ public class MemberService {
             throw new PhoneNumberDuplicateException(ErrorCode.PHONE_NUMBER_DUPLICATION.getMessage());
         }
     }
-
 
 }
