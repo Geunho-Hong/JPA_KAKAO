@@ -28,6 +28,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
+        e.printStackTrace();
         log.error("Server Error Occur : {} ", e.getMessage());
         ErrorResponse response = ErrorResponse.of(ErrorCode.SERVER_ERROR);
         return ResponseEntity.status(response.getStatus()).body(response);

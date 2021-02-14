@@ -6,10 +6,13 @@ buildscript {
         mavenCentral()
         jcenter()
     }
-
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
+}
+
+plugins {
+    id "org.asciidoctor.convert" version "1.5.9.2" // (1)
 }
 
 apply plugin : 'java'
@@ -21,6 +24,18 @@ group 'com.swchoi.webservice'
 version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
+asciidoctor {
+   // dependsOn test
+    'org.springframework.restdocs:spring-restdocs-asciidoctor'
+}
+
+bootJar {
+    dependsOn asciidoctor // (3)
+    from ("${asciidoctor.outputDir}/html5") { // (4)
+        into 'static/docs'
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -28,6 +43,7 @@ repositories {
 test {
     useJUnitPlatform()
 }
+
 
 dependencies {
 
@@ -57,12 +73,12 @@ dependencies {
 
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.0')
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.7.0'
-    testRuntimeOnly "org.junit.platform:junit-platform-commons:1.7.0"
-
-
     testImplementation group: 'org.hamcrest', name: 'hamcrest-core', version: '2.1'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.5.15'
+    testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')
+
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.7.0'
+    testRuntimeOnly "org.junit.platform:junit-platform-commons:1.7.0"
 
     //json path
     compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
@@ -70,5 +86,7 @@ dependencies {
     // Enhanced Random
     compile group: 'io.github.benas', name: 'random-beans', version: '3.9.0'
 
+    // jasypt 암호화
+    compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:2.1.2'
 
 }
